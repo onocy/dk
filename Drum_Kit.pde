@@ -6,9 +6,9 @@ final String serialName = "COM4";
 SoundFile[] notes = new SoundFile[3];
 final int S=1000;
 int input;
+int hit;
 PFont f;
 boolean keys[] = new boolean[3];
-
 
 void setup(){
   size(1000,1000);
@@ -23,38 +23,57 @@ void draw(){
   if(port.available()>0){
     input = port.read();
   }
-  switch(input){
-    case 0: //kick
-      notes[0].play();
-    case 1: //snare
-      notes[1].play();
+  stroke(0);
+  fill(255);
+  rect(0*S/3, 0, S/3, S);
+  rect(1*S/3, 0, S/3, S);
+  rect(2*S/3, 0, S/3, S);
+  textFont(f);
+  textAlign(CENTER);
+  if(input == 0){
+    fill(0,0,0);
   }
-
-  //hi-hat
-  
-  //for(int i=0;i<3;i++) {
-  //  if(!keys[i]){
-  //    fill(0,0,0);
-  //  }
-  //  else{
-  //    fill(245,245,220);
-  //  }
-  //  stroke(255);
-  //  rect(i*S/3, 0, S/3, S);
-  //  fill(0);
-  //  textFont(f);
-  //  textAlign(CENTER);
-  //  text("Kick", 333/2, S/2);
-  //  text("Snare", (S/3)+333/2, S/2);
-  //  text("Hi-Hat", (2*S/3)+333/2, S/2);
+  if (input == 1){
+    notes[input-1].play();
+    hit = 1;
+    delay(300);
+    println(input);
+  }
+  if (input == 2){
+    notes[input-1].play();
+    hit = 2;
+    delay(300);
+    println(input);
+  }
+  if (input == 3){
+    notes[input-1].play();
+    hit = 3;
+    delay(300);
+    println(input);
+  }
+  if(hit == 1){
+    fill(255, 0, 0);
+    text("Kick", 333/2, S/2);
+  }
+  else{
+    fill(0,0,0);
+    text("Kick", 333/2, S/2);
+  }
+   if(hit == 2){
+    fill(255, 0, 0);
+    text("Snare", (S/3)+333/2, S/2);
+  }
+  else{
+    fill(0,0,0);
+    text("Snare", (S/3)+333/2, S/2);
+  }
+   if(hit == 3){
+    fill(255, 0, 0);
+    text("Hi-Hat", (2*S/3)+333/2, S/2);
+  }
+  else{
+    fill(0,0,0);
+    text("Hi-Hat", (2*S/3)+333/2, S/2);
+  }
 }
-//void keyPressed() {
-//  if(key>='1'&&key<='3') {
-//    int i=key-'1';
-//    keys[i]=true;
-//    notes[i].play();   
-//  }
-//}
-//void keyReleased() {
-//  if(key>='1'&&key<='3') keys[key-'1']=false;
-//}
+  
